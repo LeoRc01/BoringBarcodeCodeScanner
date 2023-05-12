@@ -8,23 +8,13 @@ import 'package:simple_barcode_scanner/enum.dart';
 
 /// Barcode scanner for web using iframe
 class BarcodeScanner extends StatelessWidget {
-  final String lineColor;
-  final String cancelButtonText;
-  final bool isShowFlashIcon;
   final ScanType scanType;
-  final Function(String) onScanned;
-  final String? appBarTitle;
-  final bool? centerTitle;
+  final Future Function(String) onScanned;
 
   const BarcodeScanner({
     Key? key,
-    required this.lineColor,
-    required this.cancelButtonText,
-    required this.isShowFlashIcon,
     required this.scanType,
     required this.onScanned,
-    this.appBarTitle,
-    this.centerTitle,
   }) : super(key: key);
 
   @override

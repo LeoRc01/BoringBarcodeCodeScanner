@@ -9,10 +9,10 @@ export 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 class SimpleBarcodeScannerPage extends StatelessWidget {
 
   final ScanType scanType;
-  final Future Function(String)? returnValue;
+  final Future Function(String)? onScanned;
 
   const SimpleBarcodeScannerPage(
-      {Key? key, this.scanType = ScanType.barcode, this.returnValue})
+      {Key? key, this.scanType = ScanType.barcode, this.onScanned})
       : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class SimpleBarcodeScannerPage extends StatelessWidget {
     return BarcodeScanner(
       scanType: scanType,
       onScanned: (res) async {
-        await returnValue?.call(res);
+        await onScanned?.call(res);
       },
     );
   }
