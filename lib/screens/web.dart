@@ -22,7 +22,7 @@ class BarcodeScanner extends StatelessWidget {
     String createdViewId = DateTime.now().microsecondsSinceEpoch.toString();
     String? barcodeNumber;
 
-    final html.IFrameElement iframe = html.IFrameElement()
+    final html.IFrameElement iframe = html.IFrameElement()..height = '10'
       ..src = PackageConstant.barcodeFileWebPath
       ..style.border = 'none'
       ..onLoad.listen((event) async {
