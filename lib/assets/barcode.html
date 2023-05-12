@@ -22,8 +22,8 @@
 <div id="reader" ></div>
 <script>
   //refer doc here https://github.com/mebjas/html5-qrcode
- const html5QrCode = new Html5Qrcode("reader");
- console.log("Starting SCANNING CODE");
+ //const html5QrCode = new Html5Qrcode("reader");
+ //console.log("Starting SCANNING CODE");
  const qrCodeSuccessCallback = (decodedText, decodedResult) => {
      html5QrCode.stop();
      /* handle success for web */
@@ -40,10 +40,10 @@
 
  };
  const config = {
-     fps: 10,
+     fps: 30,
      qrbox: {
-         width: 280,
-         height: 120,
+         width: 300,
+         height: 300,
          aspectRatio: 1.7777778
      }
  };
