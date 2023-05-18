@@ -34,5 +34,4 @@ flutter:
 
   assets:
     - packages/simple_barcode_scanner/assets/barcode.html
-    - packages/simple_barcode_scanner/assets/html5-qrcode.min.js
 
