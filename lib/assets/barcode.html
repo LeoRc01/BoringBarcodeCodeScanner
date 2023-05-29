@@ -37,6 +37,7 @@
  };
  const config = {
      fps: 30,
+     rememberLastUsedCamera: true,
      qrbox: {
          width: 200,
          height: 200,
@@ -46,9 +47,8 @@
 
  // If you want to prefer back camera
  html5QrCode.start({
-     facingMode: "environment"
+     facingMode: "user"
  }, config, qrCodeSuccessCallback);
- //html5QrCode.start({ facingMode: "user" }, config, qrCodeSuccessCallback);
 
  //Window event listener
  if (window.chrome.webview != undefined) {
