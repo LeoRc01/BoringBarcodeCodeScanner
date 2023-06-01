@@ -42,9 +42,9 @@
 
  // If you want to prefer back camera
  html5QrCode.start({
-     facingMode: "user"
+     facingMode: "environment"
  }, config, qrCodeSuccessCallback);
-
+ //html5QrCode.start({ facingMode: "user" }, config, qrCodeSuccessCallback);
  //Window event listener
  if (window.chrome.webview != undefined) {
      window.chrome.webview.addEventListener('message', function(e) {
