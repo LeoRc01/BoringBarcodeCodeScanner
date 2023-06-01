@@ -79,12 +79,12 @@ let cameraMode = "user";
     }else{
         cameraMode = "environment";
     }
-    console.log(cameraMode);
+    
     html5QrCode = new Html5Qrcode("reader");
     html5QrCode.start({
         facingMode: cameraMode
     }, config, qrCodeSuccessCallback);
-    console.log(html5QrCode);
+    
  }
 
  </script>
