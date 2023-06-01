@@ -14,11 +14,12 @@
 
 </head>
 <body>
+    <input type="button" id="changeCamera" value="changeCamera"/>
 <!-- Div to show the scanner -->
 <div id="reader"></div>
 <script>
   //refer doc here https://github.com/mebjas/html5-qrcode
- const html5QrCode = new Html5Qrcode("reader");
+var html5QrCode = new Html5Qrcode("reader");
  //console.log("Starting SCANNING CODE");
  const qrCodeSuccessCallback = (decodedText, decodedResult) => {
      html5QrCode.stop();
@@ -39,10 +40,10 @@
      fps: 30,
      rememberLastUsedCamera: true,
  };
-
+let cameraMode = "environment";
  // If you want to prefer back camera
  html5QrCode.start({
-     facingMode: "environment"
+     facingMode: cameraMode
  }, config, qrCodeSuccessCallback);
  //html5QrCode.start({ facingMode: "user" }, config, qrCodeSuccessCallback);
  //Window event listener
@@ -54,6 +55,22 @@
          }
      });
  }
+
+ document.getElementById('changeCamera').onclick = function(){
+    
+    if(cameraMode === "environment"){
+        cameraMode = "user";
+    }else{
+        cameraMode = "environment";
+    }
+    console.log(cameraMode);
+    html5QrCode = new Html5Qrcode("reader");
+    html5QrCode.start({
+        facingMode: cameraMode
+    }, config, qrCodeSuccessCallback);
+    console.log(html5QrCode);
+ }
+
  </script>
 </body>
 </html>
