@@ -4,19 +4,35 @@
     <title></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,500,1,0" />
     <script src="https://unpkg.com/html5-qrcode"></script>
+    
     <style>
     video { border-radius:30px }
     #qr-shaded-region { border-radius:30px }
-
+    .parent {
+    position: relative;
+    top: 0;
+    left: 0;
+    }
+    .image1{
+        z-index: 2;
+        position: absolute;
+        margin: 15px;
+    }
     </style>
 
 </head>
 <body>
-    <input type="button" id="changeCamera" value="changeCamera"/>
+    
 <!-- Div to show the scanner -->
-<div id="reader"></div>
+<div class="parent">
+    
+    <span id="changeCamera" class="material-symbols-outlined image1">switch_camera</span>
+    
+    <div id="reader"></div>
+</div>
+
 <script>
   //refer doc here https://github.com/mebjas/html5-qrcode
 var html5QrCode = new Html5Qrcode("reader");
