@@ -90,7 +90,8 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: SimpleBarcodeScannerPage(),
+        child: SizedBox(
+            width: 400, height: 400, child: SimpleBarcodeScannerPage()),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
