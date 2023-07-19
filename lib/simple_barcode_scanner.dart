@@ -7,7 +7,6 @@ import 'package:simple_barcode_scanner/screens/shared.dart';
 export 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
 class SimpleBarcodeScannerPage extends StatelessWidget {
-
   final ScanType scanType;
   final Future Function(String)? onScanned;
 
