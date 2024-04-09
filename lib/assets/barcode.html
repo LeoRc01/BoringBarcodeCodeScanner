@@ -47,39 +47,63 @@
 
     <script>
 
+        window.parent.addEventListener('message', switchCameras, false);
+
+        const config = {
+            fps: 30,
+            rememberLastUsedCamera: true,
+            qrbox: {
+                width: 250,
+                height: 250,
+            }
+        };
+
+        const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+            html5QrCode.stop();
+            /* handle success for web */
+            window.parent.postMessage(decodedText, "*");
+
+            /* handle success for window */
+            if (window.chrome.webview != "undefined") {
+                var param = {
+                    "methodName": "successCallback",
+                    "data": decodedText
+                }
+                window.chrome.webview.postMessage(param);
+            }
+        };
+
+        var devicesList = [];
+        var index = 0;
+        var devicesLength = 0;
+        var html5QrCode = new Html5Qrcode("reader");
+
+        function switchCameras(e) {
+
+            if (index < devicesLength - 1) {
+                index++;
+            } else {
+                index = 0;
+            }
+
+            cameraId = devicesList[index].id;
+
+            html5QrCode = new Html5Qrcode("reader");
+            html5QrCode.start({ deviceId: { exact: cameraId } }, config, qrCodeSuccessCallback);
+        }
+
         // This method will trigger user permissions
         Html5Qrcode.getCameras().then(devices => {
-            alert(devices.length);
+
+            devicesList = devices;
+
             //refer doc here https://github.com/mebjas/html5-qrcode
-            var html5QrCode = new Html5Qrcode("reader");
 
             //console.log("Starting SCANNING CODE");
-            const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-                html5QrCode.stop();
-                /* handle success for web */
-                window.parent.postMessage(decodedText, "*");
 
-                /* handle success for window */
-                if (window.chrome.webview != "undefined") {
-                    var param = {
-                        "methodName": "successCallback",
-                        "data": decodedText
-                    }
-                    window.chrome.webview.postMessage(param);
-                }
-            };
-            const config = {
-                fps: 30,
-                rememberLastUsedCamera: true,
-                qrbox: {
-                    width: 250,
-                    height: 250,
-                }
-            };
-            let cameraMode = "environment";
-            let index = 0;
-            let devicesLength = devices.length;
-            let cameraId = devices[index].id;
+
+            devicesLength = devices.length;
+            var cameraId = devices[index].id;
             // If you want to prefer back camera
             html5QrCode.start({ deviceId: { exact: cameraId } }, config, qrCodeSuccessCallback);
             //html5QrCode.start({ facingMode: "user" }, config, qrCodeSuccessCallback);
@@ -94,12 +118,6 @@
             }
 
             document.getElementById('changeCamera').onclick = function () {
-
-                // if (cameraMode === "environment") {
-                //     cameraMode = "user";
-                // } else {
-                //     cameraMode = "environment";
-                // }
 
                 if (index < devicesLength - 1) {
                     index++;

@@ -37,6 +37,7 @@ class BarcodeScanner extends StatelessWidget {
       ..style.border = 'none'
       ..onLoad.listen((event) async {
         /// Barcode listener on success barcode scanned
+
         html.window.onMessage.listen((event) {
           /// If barcode is null then assign scanned barcode
           /// and close the screen otherwise keep scanning
@@ -46,12 +47,25 @@ class BarcodeScanner extends StatelessWidget {
           }
         });
       });
+
     // ignore: undefined_prefixed_name
     ui.platformViewRegistry
         .registerViewFactory(createdViewId, (int viewId) => iframe);
 
-    return HtmlElementView(
-      viewType: createdViewId,
+    return Column(
+      children: [
+        Expanded(
+          child: HtmlElementView(
+            viewType: createdViewId,
+          ),
+        ),
+        FilledButton(
+          onPressed: () {
+            html.window.postMessage('message', '*');
+          },
+          child: Text("Press me!"),
+        ),
+      ],
     );
   }
 }
