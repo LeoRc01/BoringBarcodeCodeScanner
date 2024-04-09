@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:simple_barcode_scanner/constant.dart';
 import 'package:simple_barcode_scanner/enum.dart';
 
+typedef BarcodeScannerKey = GlobalKey<BarcodeScannerState>;
+
 /// Barcode scanner for web using iframe
-class BarcodeScanner extends StatelessWidget {
+class BarcodeScanner extends StatefulWidget {
   final String? lineColor;
   final String? cancelButtonText;
   final bool? isShowFlashIcon;
@@ -27,6 +29,15 @@ class BarcodeScanner extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<BarcodeScanner> createState() => BarcodeScannerState();
+}
+
+class BarcodeScannerState extends State<BarcodeScanner> {
+  void switchCameras() {
+    html.window.postMessage('message', '*');
+  }
+
+  @override
   Widget build(BuildContext context) {
     String createdViewId = DateTime.now().microsecondsSinceEpoch.toString();
     String? barcodeNumber;
@@ -43,7 +54,7 @@ class BarcodeScanner extends StatelessWidget {
           /// and close the screen otherwise keep scanning
           if (barcodeNumber == null) {
             barcodeNumber = event.data;
-            onScanned(barcodeNumber!);
+            widget.onScanned(barcodeNumber!);
           }
         });
       });
@@ -52,20 +63,8 @@ class BarcodeScanner extends StatelessWidget {
     ui.platformViewRegistry
         .registerViewFactory(createdViewId, (int viewId) => iframe);
 
-    return Column(
-      children: [
-        Expanded(
-          child: HtmlElementView(
-            viewType: createdViewId,
-          ),
-        ),
-        FilledButton(
-          onPressed: () {
-            html.window.postMessage('message', '*');
-          },
-          child: Text("Press me!"),
-        ),
-      ],
+    return HtmlElementView(
+      viewType: createdViewId,
     );
   }
 }
