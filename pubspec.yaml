@@ -23,6 +23,7 @@ dependencies:
   flutter_barcode_scanner: ^2.0.0
   #Get assets path for window platform
   path: ^1.8.3
+  js: ^0.7.1
   #checking permissions
   permission_handler: ^10.2.0
 dev_dependencies:
@@ -34,5 +35,6 @@ flutter:
 
   assets:
     - packages/simple_barcode_scanner/assets/barcode.html
+    - packages/simple_barcode_scanner/assets/html5-qrcode.js
     
 
